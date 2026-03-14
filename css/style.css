@@ -96,7 +96,7 @@ h1, h2, h3, h4 {
   color: var(--dark);
   margin-bottom: 1rem;
   font-weight: 300;
-  letter-spacing: .02em;
+  letter-spacing: .04em;
 }
 
 .section-subtitle {
@@ -119,7 +119,9 @@ h1, h2, h3, h4 {
 }
 
 .section-alt {
-  background: var(--cream);
+  /* Cream with the very faintest sage undertone for rural character */
+  background: color-mix(in srgb, var(--cream) 96%, var(--sage) 4%);
+  background: var(--cream); /* fallback for browsers without color-mix */
 }
 
 /* ── BOTANICAL SEPARATOR ── */
@@ -575,8 +577,8 @@ h1, h2, h3, h4 {
   display: block;
   font-family: var(--font-serif);
   font-size: .85rem;
-  color: var(--gold);
-  letter-spacing: .1em;
+  color: var(--terracotta);
+  letter-spacing: .12em;
   margin-bottom: .5rem;
 }
 
@@ -617,7 +619,10 @@ h1, h2, h3, h4 {
 }
 
 .event-card.visible { opacity: 1; transform: translateY(0); }
-.event-card:hover { box-shadow: var(--shadow-md); }
+.event-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(196,113,74,.25);
+}
 
 .event-icon {
   width: 48px;
@@ -722,7 +727,7 @@ h1, h2, h3, h4 {
   font-style: italic;
   margin-bottom: 2rem;
   padding-bottom: .75rem;
-  border-bottom: 1px solid rgba(201,169,110,.3);
+  border-bottom: 1px solid rgba(122,143,122,.35);
 }
 
 .cortejo-members {
@@ -837,11 +842,11 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--cream);
+  background: var(--sage-lt);
   border-radius: 10px;
   margin-bottom: 1rem;
 }
-.travel-icon svg { width: 20px; height: 20px; color: var(--gold); }
+.travel-icon svg { width: 20px; height: 20px; color: var(--sage); }
 
 .travel-card h3 {
   display: flex;
@@ -888,7 +893,11 @@ h1, h2, h3, h4 {
   background: var(--cream);
   border-radius: 8px;
   font-size: .88rem;
+  border-left: 2px solid rgba(122,143,122,.3);
+  transition: border-color var(--transition);
 }
+
+.hotel-item:hover { border-left-color: var(--sage); }
 
 .hotel-item strong { font-weight: 700; color: var(--dark); }
 .hotel-item span { color: var(--muted); }
@@ -1102,20 +1111,25 @@ h1, h2, h3, h4 {
 
 .form-group option { background: #2C2420; color: var(--white); }
 
-/* Smooth show/hide for conditional form sections */
+/* Smooth show/hide for conditional form sections.
+   JS toggles inline display:none; we also apply a CSS animation
+   on initial reveal so fields fade/slide in gracefully.           */
 #extra-fields,
 #bus-fields,
 #acompanante-group {
-  transition: opacity var(--transition), transform var(--transition);
+  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
 }
 
-#extra-fields.hidden,
-#bus-fields.hidden,
-#acompanante-group.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-6px);
-  /* override display:none with visibility for transition */
+/* When JS un-hides these fields, animate them in */
+#extra-fields:not([style*="display: none"]),
+#bus-fields:not([style*="display: none"]),
+#acompanante-group:not([style*="display: none"]) {
+  animation: fieldReveal .35s cubic-bezier(.4,0,.2,1) both;
+}
+
+@keyframes fieldReveal {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Radio group (bus) */
@@ -1158,10 +1172,11 @@ h1, h2, h3, h4 {
   border-color: var(--gold);
   background: rgba(201,169,110,.18);
   color: var(--white);
-  box-shadow: inset 0 0 0 1px var(--gold);
+  box-shadow: inset 0 0 0 1px var(--gold), inset 3px 0 0 var(--gold);
+  font-weight: 700;
 }
 
-/* Dot indicator on checked radio box */
+/* Checkmark indicator on selected radio */
 .radio-option input[type="radio"]:checked + .radio-box::before {
   content: '✓';
   font-size: .75em;
@@ -1285,11 +1300,14 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(201,169,110,.4);
+  box-shadow: 0 4px 20px rgba(201,169,110,.35), 0 0 0 0 rgba(201,169,110,.4);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(12px) scale(.9);
-  transition: opacity var(--transition), transform var(--transition), background var(--transition), box-shadow var(--transition);
+  transform: translateY(12px) scale(.85);
+  transition: opacity .4s cubic-bezier(.4,0,.2,1),
+              transform .4s cubic-bezier(.4,0,.2,1),
+              background var(--transition),
+              box-shadow var(--transition);
 }
 
 #back-to-top.visible {
@@ -1300,8 +1318,8 @@ h1, h2, h3, h4 {
 
 #back-to-top:hover {
   background: var(--gold-dk);
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 28px rgba(160,120,64,.5);
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 10px 30px rgba(160,120,64,.45), 0 0 0 4px rgba(201,169,110,.2);
 }
 
 #back-to-top svg { width: 18px; height: 18px; }
@@ -1370,7 +1388,63 @@ h1, h2, h3, h4 {
 
 /* ── PRINT ── */
 @media print {
-  #navbar, #back-to-top, .hero-scroll-hint { display: none; }
-  .hero { min-height: auto; padding: 3rem 0; }
-  .section { padding: 40px 0; }
+  /* Hide navigational and decorative chrome */
+  #navbar,
+  #back-to-top,
+  .hero-scroll-hint,
+  .std-banner,
+  .event-divider,
+  .floral-divider,
+  .map-pin-anim,
+  .gallery-grid,
+  .hero::before,
+  .rsvp-overlay { display: none !important; }
+
+  /* Reset hero to a compact info block */
+  .hero {
+    min-height: auto;
+    padding: 2rem 0 1rem;
+    background: none !important;
+    color: #000;
+  }
+  .hero-names,
+  .hero-pretitle,
+  .hero-date { color: #000 !important; }
+  .hero-location { color: #333 !important; }
+  #countdown { display: none; }
+
+  /* Readable section spacing */
+  .section,
+  .section-rsvp { padding: 24px 0; background: #fff !important; }
+  .section-alt { background: #f7f5f2 !important; }
+
+  /* Always show event & travel detail — override JS-hidden states */
+  .event-card,
+  .travel-card,
+  .map-container {
+    opacity: 1 !important;
+    transform: none !important;
+    display: block !important;
+  }
+
+  /* Expand all FAQ answers */
+  .faq-answer { max-height: none !important; overflow: visible !important; }
+  .faq-answer p { display: block !important; }
+
+  /* Remove cosmetic shadows for cleaner paper output */
+  .timeline-card,
+  .event-card,
+  .travel-card,
+  .faq-item { box-shadow: none !important; border: 1px solid #d0c9c0 !important; }
+
+  /* Print-legible typography */
+  body { font-size: 11pt; color: #000; background: #fff; }
+  .section-title { font-size: 16pt; color: #000 !important; }
+  .section-subtitle,
+  .muted,
+  p { color: #333 !important; }
+
+  /* Show href for external links */
+  a[href^="http"]::after,
+  a[href^="https"]::after { content: " (" attr(href) ")"; font-size: .75em; color: #666; }
 }
