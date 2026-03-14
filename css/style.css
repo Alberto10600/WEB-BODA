@@ -32,9 +32,9 @@
   --muted:       #6B5D52;
   --white:       #ffffff;
 
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-script:'Great Vibes', cursive;
-  --font-sans:  'Lato', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-script:'Playfair Display', Georgia, serif;
+  --font-sans:  'Inter', system-ui, sans-serif;
 
   --shadow-sm: 0 2px 12px rgba(44,36,32,.08);
   --shadow-md: 0 8px 32px rgba(44,36,32,.12);
@@ -95,7 +95,7 @@ h1, h2, h3, h4 {
   font-size: clamp(2rem, 4vw, 3rem);
   color: var(--dark);
   margin-bottom: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: .04em;
 }
 
@@ -251,8 +251,10 @@ h1, h2, h3, h4 {
 }
 
 .nav-logo {
-  font-family: var(--font-script);
-  font-size: 1.8rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
   color: var(--white);
   transition: color var(--transition);
   flex-shrink: 0;
@@ -383,11 +385,13 @@ h1, h2, h3, h4 {
 }
 
 .hero-names {
-  font-family: var(--font-script);
-  font-size: clamp(4rem, 10vw, 8rem);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(3rem, 8vw, 6.5rem);
   color: var(--white);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
   margin-bottom: 1.5rem;
 }
 
@@ -438,7 +442,7 @@ h1, h2, h3, h4 {
 .countdown-item span {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 300;
+  font-weight: 400;
   color: var(--white);
   line-height: 1;
   word-break: keep-all;
@@ -723,7 +727,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-serif);
   font-size: 1.3rem;
   color: var(--muted);
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
   margin-bottom: 2rem;
   padding-bottom: .75rem;
@@ -1232,8 +1236,11 @@ h1, h2, h3, h4 {
 }
 
 .footer-monogram {
-  font-family: var(--font-script);
-  font-size: 4rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 2.8rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
   color: var(--gold);
   line-height: 1;
   margin-bottom: .5rem;
