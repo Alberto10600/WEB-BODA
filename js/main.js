@@ -160,7 +160,7 @@
 /* ── RSVP FORM ──────────────────────────── */
 (function initRSVP() {
   // ── Pega aquí la URL de tu Google Apps Script desplegado ──
-  const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/1_KdIyscQqmZ1qVmkHbTTbuRi5F1af1eOfRac3vfAHP4/edit?gid=0#gid=0';
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxThLk9v8VcSusdsKS8b1XB_T_MVW_iEUok8g2QRfNFfk1wM62-RAdkuTLNsEL0Tumq/exec';
 
   const form    = document.getElementById('rsvp-form');
   const success = document.getElementById('rsvp-success');
