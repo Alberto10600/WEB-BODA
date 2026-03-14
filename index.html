@@ -548,17 +548,42 @@
               <option value="vegetariano">Vegetariano/a</option>
               <option value="vegano">Vegano/a</option>
               <option value="celiaco">Celíaco/a (sin gluten)</option>
-              <option value="alergias">Otras alergias (indicar en mensaje)</option>
+              <option value="otro">Otro (indicar abajo)</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="bus">¿Necesitas el bus lanzadera?</label>
-            <select id="bus" name="bus">
-              <option value="no">No, tengo transporte</option>
-              <option value="si-ida">Sí, solo ida</option>
-              <option value="si-vuelta">Sí, solo vuelta</option>
-              <option value="si-ambos">Sí, ida y vuelta</option>
-            </select>
+            <label for="alergias">¿Tienes alguna alergia alimentaria?</label>
+            <input type="text" id="alergias" name="alergias" placeholder="Ej: frutos secos, marisco, lácteos…" />
+          </div>
+        </div>
+
+        <div class="form-row" id="bus-fields">
+          <div class="form-group full-width">
+            <label>¿Usarás el bus lanzadera gratuito? <span class="label-hint">(Salida 16:15 h desde Hotel Alfonso XIII)</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="bus" value="no" checked />
+                <span class="radio-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v9a2 2 0 01-2 2h-3"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+                  No, tengo transporte
+                </span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="bus" value="si-ida" />
+                <span class="radio-box">Solo ida</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="bus" value="si-vuelta" />
+                <span class="radio-box">Solo vuelta</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="bus" value="si-ambos" />
+                <span class="radio-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4-4 4M7 8l-4 4 4 4M14 4l-4 16"/></svg>
+                  Ida y vuelta
+                </span>
+              </label>
+            </div>
           </div>
         </div>
 

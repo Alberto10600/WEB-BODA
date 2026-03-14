@@ -169,10 +169,13 @@
   const extraFields   = form.querySelector('#extra-fields');
   const acompGroup    = form.querySelector('#acompanante-group');
 
+  const busFields = form.querySelector('#bus-fields');
+
   function toggleFields() {
     const attending = asistencia.value === 'si';
     if (extraFields) extraFields.style.display = attending ? '' : 'none';
     if (acompGroup)  acompGroup.style.display  = attending ? '' : 'none';
+    if (busFields)   busFields.style.display   = attending ? '' : 'none';
   }
 
   if (asistencia) {

@@ -1003,6 +1003,53 @@ h1, h2, h3, h4 {
 
 .form-group option { background: #2C2420; color: var(--white); }
 
+/* Radio group (bus) */
+.label-hint {
+  font-size: .7rem;
+  font-weight: 400;
+  color: rgba(255,255,255,.35);
+  letter-spacing: .04em;
+  text-transform: none;
+  margin-left: .4rem;
+}
+
+.radio-group {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  margin-top: .25rem;
+}
+
+.radio-option { cursor: pointer; }
+.radio-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+
+.radio-box {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .75rem 1.1rem;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px;
+  font-size: .88rem;
+  color: rgba(255,255,255,.65);
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+
+.radio-box svg { width: 1em; height: 1em; flex-shrink: 0; }
+
+.radio-option input[type="radio"]:checked + .radio-box {
+  border-color: var(--gold);
+  background: rgba(201,169,110,.15);
+  color: var(--white);
+}
+
+.radio-option:hover .radio-box {
+  border-color: rgba(201,169,110,.5);
+  color: var(--white);
+}
+
 .form-submit { text-align: center; margin-top: .5rem; }
 
 /* RSVP success */
