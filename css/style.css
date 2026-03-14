@@ -1,27 +1,36 @@
 /* ═══════════════════════════════════════════════
-   WEDDING WEBSITE · Carlos & María
+   WEDDING WEBSITE · Alberto & Almudena
    Color palette:
-     --ivory:    #FAF7F2  (background)
-     --cream:    #F2EBE0
-     --gold:     #C9A96E  (accent)
-     --gold-dk:  #A07840
-     --sage:     #7A8F7A  (secondary accent)
-     --dark:     #2C2420  (text)
-     --muted:    #8A7A6E  (muted text)
+     --ivory:      #FAF7F2  (background)
+     --cream:      #F2EBE0
+     --gold:       #C9A96E  (accent)
+     --gold-dk:    #A07840
+     --sage:       #7A8F7A  (nature/rural accent)
+     --terracotta: #C4714A  (warm decorative accent)
+     --dark:       #2C2420  (text)
+     --muted:      #6B5D52  (muted text — improved contrast)
 ═══════════════════════════════════════════════ */
 
 /* ── RESET & BASE ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── SELECTION ── */
+::selection {
+  background: var(--gold);
+  color: var(--dark);
+}
+
 :root {
-  --ivory:   #FAF7F2;
-  --cream:   #F2EBE0;
-  --gold:    #C9A96E;
-  --gold-dk: #A07840;
-  --sage:    #7A8F7A;
-  --dark:    #2C2420;
-  --muted:   #8A7A6E;
-  --white:   #ffffff;
+  --ivory:       #FAF7F2;
+  --cream:       #F2EBE0;
+  --gold:        #C9A96E;
+  --gold-dk:     #A07840;
+  --sage:        #7A8F7A;
+  --sage-lt:     #EDF2ED;
+  --terracotta:  #C4714A;
+  --dark:        #2C2420;
+  --muted:       #6B5D52;
+  --white:       #ffffff;
 
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-script:'Great Vibes', cursive;
@@ -52,11 +61,23 @@ a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 
+/* Tap highlight & focus-visible */
+a, button, [role="button"], label.radio-option {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
 /* ── TYPOGRAPHY ── */
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
   font-weight: 400;
   line-height: 1.2;
+  text-wrap: balance;
 }
 
 .section-tag {
@@ -75,6 +96,7 @@ h1, h2, h3, h4 {
   color: var(--dark);
   margin-bottom: 1rem;
   font-weight: 300;
+  letter-spacing: .02em;
 }
 
 .section-subtitle {
@@ -98,6 +120,60 @@ h1, h2, h3, h4 {
 
 .section-alt {
   background: var(--cream);
+}
+
+/* ── BOTANICAL SEPARATOR ── */
+/* Placed between sections using a pseudo-element on section headings */
+.section-tag::before {
+  content: '✦';
+  display: inline-block;
+  color: var(--sage);
+  margin-right: .6em;
+  font-size: .85em;
+  opacity: .7;
+}
+
+.section-tag::after {
+  content: '✦';
+  display: inline-block;
+  color: var(--sage);
+  margin-left: .6em;
+  font-size: .85em;
+  opacity: .7;
+}
+
+/* Decorative rule used as a botanical divider between major sections */
+.section::after {
+  content: none; /* reserved for targeted use */
+}
+
+/* Sage accent strip on section-alt tops */
+.section-alt .section-title {
+  position: relative;
+  display: inline-block;
+}
+
+.section-alt .section-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(to right, var(--sage), var(--terracotta));
+  border-radius: 2px;
+  margin: .75rem auto 0;
+  opacity: .6;
+}
+
+/* Non-alt section title underline in gold */
+.section:not(.section-alt):not(.section-rsvp) .section-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold), var(--terracotta));
+  border-radius: 2px;
+  margin: .75rem auto 0;
+  opacity: .55;
 }
 
 /* ── BUTTONS ── */
@@ -197,13 +273,30 @@ h1, h2, h3, h4 {
   color: rgba(255,255,255,.85);
   padding: .5rem .7rem;
   border-radius: var(--radius);
-  transition: color var(--transition), background var(--transition);
+  transition: color var(--transition);
+  position: relative;
 }
 
-.nav-links a:hover { color: var(--white); background: rgba(255,255,255,.1); }
+/* Underline slide-in animation for nav links */
+.nav-links a:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  bottom: .1rem;
+  left: .7rem;
+  right: .7rem;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition);
+}
+
+.nav-links a:not(.nav-cta):hover::after { transform: scaleX(1); }
+.nav-links a:hover { color: var(--white); }
 
 #navbar.scrolled .nav-links a { color: var(--muted); }
-#navbar.scrolled .nav-links a:hover { color: var(--dark); background: transparent; }
+#navbar.scrolled .nav-links a:not(.nav-cta):hover::after { background: var(--gold-dk); }
+#navbar.scrolled .nav-links a:hover { color: var(--dark); }
 
 .nav-links .nav-cta {
   background: var(--gold);
@@ -243,7 +336,8 @@ h1, h2, h3, h4 {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #2C2420 0%, #3D2E28 40%, #4A3828 70%, #2C2420 100%);
+  /* Warm golden-hour: deep terracotta-brown to dark warm green-brown */
+  background: linear-gradient(150deg, #1E1510 0%, #3A2218 35%, #4A3420 65%, #2A2C1E 100%);
 }
 
 /* Decorative botanical background via CSS */
@@ -252,8 +346,9 @@ h1, h2, h3, h4 {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(201,169,110,.12) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 80% at 80% 60%, rgba(122,143,122,.10) 0%, transparent 70%);
+    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(196,113,74,.18) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 80% at 80% 60%, rgba(122,143,122,.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 50% 80%, rgba(201,169,110,.10) 0%, transparent 60%);
 }
 
 .hero-overlay {
@@ -335,6 +430,7 @@ h1, h2, h3, h4 {
   flex-direction: column;
   align-items: center;
   min-width: 70px;
+  max-width: 90px;
 }
 
 .countdown-item span {
@@ -343,6 +439,8 @@ h1, h2, h3, h4 {
   font-weight: 300;
   color: var(--white);
   line-height: 1;
+  word-break: keep-all;
+  white-space: nowrap;
 }
 
 .countdown-item label {
@@ -868,6 +966,7 @@ h1, h2, h3, h4 {
   justify-content: space-between;
   gap: 1rem;
   padding: 1.2rem 1.5rem;
+  min-height: 48px; /* WCAG touch target */
   font-family: var(--font-serif);
   font-size: 1.05rem;
   color: var(--dark);
@@ -906,7 +1005,7 @@ h1, h2, h3, h4 {
 /* ── RSVP SECTION ── */
 .section-rsvp {
   position: relative;
-  background: linear-gradient(135deg, #2C2420 0%, #3D2E28 50%, #2C2420 100%);
+  background: linear-gradient(150deg, #1E1510 0%, #3A2218 50%, #2A2C1E 100%);
   padding: 100px 0;
 }
 
@@ -1003,6 +1102,22 @@ h1, h2, h3, h4 {
 
 .form-group option { background: #2C2420; color: var(--white); }
 
+/* Smooth show/hide for conditional form sections */
+#extra-fields,
+#bus-fields,
+#acompanante-group {
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+#extra-fields.hidden,
+#bus-fields.hidden,
+#acompanante-group.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  /* override display:none with visibility for transition */
+}
+
 /* Radio group (bus) */
 .label-hint {
   font-size: .7rem;
@@ -1041,13 +1156,30 @@ h1, h2, h3, h4 {
 
 .radio-option input[type="radio"]:checked + .radio-box {
   border-color: var(--gold);
-  background: rgba(201,169,110,.15);
+  background: rgba(201,169,110,.18);
   color: var(--white);
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+
+/* Dot indicator on checked radio box */
+.radio-option input[type="radio"]:checked + .radio-box::before {
+  content: '✓';
+  font-size: .75em;
+  color: var(--gold);
+  margin-right: .3em;
+  font-weight: 700;
 }
 
 .radio-option:hover .radio-box {
-  border-color: rgba(201,169,110,.5);
+  border-color: rgba(201,169,110,.6);
   color: var(--white);
+  background: rgba(255,255,255,.09);
+}
+
+/* Focus-visible for radio inputs */
+.radio-option input[type="radio"]:focus-visible + .radio-box {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
 
 .form-submit { text-align: center; margin-top: .5rem; }
@@ -1145,28 +1277,31 @@ h1, h2, h3, h4 {
   bottom: 2rem;
   right: 2rem;
   z-index: 900;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   background: var(--gold);
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 20px rgba(201,169,110,.4);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition), transform var(--transition);
+  transform: translateY(12px) scale(.9);
+  transition: opacity var(--transition), transform var(--transition), background var(--transition), box-shadow var(--transition);
 }
 
 #back-to-top.visible {
   opacity: 1;
   pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
 #back-to-top:hover {
   background: var(--gold-dk);
-  transform: translateY(-3px);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 28px rgba(160,120,64,.5);
 }
 
 #back-to-top svg { width: 18px; height: 18px; }

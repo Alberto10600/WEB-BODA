@@ -1,12 +1,12 @@
 /* ═══════════════════════════════════════════
-   WEDDING WEBSITE · Carlos & María · main.js
+   WEDDING WEBSITE · Alberto & Almudena · main.js
 ═══════════════════════════════════════════ */
 
 'use strict';
 
 /* ── COUNTDOWN ──────────────────────────── */
 (function initCountdown() {
-  const weddingDate = new Date('2026-07-12T17:00:00');
+  const weddingDate = new Date('2026-07-25T20:00:00');
 
   const els = {
     days:    document.getElementById('cd-days'),
@@ -367,8 +367,8 @@
   const caption = overlay.querySelector('.lb-caption');
 
   function openLightbox(label) {
-    media.textContent = label || 'Foto de Carlos & María';
-    caption.textContent = '#CarlosyMaría2026';
+    media.textContent = label || 'Foto de Alberto & Almudena';
+    caption.textContent = '#AlbertoyAlmudena2026';
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
