@@ -159,6 +159,9 @@
 
 /* ── RSVP FORM ──────────────────────────── */
 (function initRSVP() {
+  // ── Pega aquí la URL de tu Google Apps Script desplegado ──
+  const SHEETS_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
   const form    = document.getElementById('rsvp-form');
   const success = document.getElementById('rsvp-success');
 
@@ -245,12 +248,31 @@
       Enviando…
     `;
 
-    // Simulate async submit (replace with real endpoint)
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Recoger datos del formulario
+    const data = {
+      timestamp:   new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }),
+      nombre:      form.querySelector('#nombre')?.value.trim()      || '',
+      email:       form.querySelector('#email')?.value.trim()       || '',
+      asistencia:  form.querySelector('#asistencia')?.value         || '',
+      acompanante: form.querySelector('#acompanante')?.value        || '',
+      dieta:       form.querySelector('#dieta')?.value              || '',
+      alergias:    form.querySelector('#alergias')?.value.trim()    || '',
+      bus:         (form.querySelector('input[name="bus"]:checked'))?.value || 'no',
+      mensaje:     form.querySelector('#mensaje')?.value.trim()     || '',
+    };
 
-    // Build data object (wire to your backend / Google Forms / Netlify Forms)
-    const data = Object.fromEntries(new FormData(form).entries());
-    console.log('[RSVP]', data);
+    // Enviar a Google Sheets
+    if (SHEETS_URL && SHEETS_URL !== 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+      try {
+        await fetch(SHEETS_URL, {
+          method:  'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body:    JSON.stringify(data),
+        });
+      } catch (err) {
+        console.warn('[RSVP] Google Sheets error:', err);
+      }
+    }
 
     // Show success state
     form.querySelectorAll('.form-row, .form-group, .form-submit').forEach(el => {
